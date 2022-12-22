@@ -2,78 +2,93 @@ package workshop;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class PlaintextToHtmlConverter {
-    String source;
-    int i;
-    List<String> result;
-    List<String> convertedLine;
-    String characterToConvert;
+    String INPUT_FILE = "sample.txt";
+    String sourceString;
+    int iterator;
+    List<String> totalEncodedOutputList;
+    List<String> encodedLineList;
+    String characterToEncode;
 
     public String toHtml() throws Exception {
         String text = read();
-        String htmlLines = basicHtmlEncode(text);
-        return htmlLines;
+	return basicHtmlEncode(text);
     }
-
     protected String read() throws IOException {
-        return new String(Files.readAllBytes(Paths.get("sample.txt")));
+	Path filePath = Paths.get(INPUT_FILE);
+        return new String(Files.readAllBytes(filePath));
     }
 
-    private String basicHtmlEncode(String source) {
-        this.source = source;
-        i = 0;
-        result = new ArrayList<>();
-        convertedLine = new ArrayList<>();
-        characterToConvert = stashNextCharacterAndAdvanceThePointer();
+    private String basicHtmlEncode(String sourceString){
+	initializeClassFields(sourceString);
+        
+        while (endNotReached()){
+	    encodeCharAtIndex(iterator);
+            if (endReached()) break;
 
-        while (i <= this.source.length()) {
-            switch (characterToConvert) {
-                case "<":
-                    convertedLine.add("&lt;");
-                    break;
-                case ">":
-                    convertedLine.add("&gt;");
-                    break;
-                case "&":
-                    convertedLine.add("&amp;");
-                    break;
-                case "\n":
-                    addANewLine();
-                    break;
-                default:
-                    pushACharacterToTheOutput();
-            }
-
-            if (i >= source.length()) break;
-
-            characterToConvert = stashNextCharacterAndAdvanceThePointer();
+            characterToEncode = pickCharacterFromSourceString();
         }
-        addANewLine();
-        String finalResult = String.join("<br />", result);
+        ConvertEncodedLineListToString();
+
+        String finalResult = stringify(totalEncodedOutputList);
         return finalResult;
     }
+    private void initializeClassFields(String sourceString){
+	this.sourceString = sourceString;
+        iterator = 0;
+        totalEncodedOutputList = new ArrayList<>();
+        encodedLineList = new ArrayList<>();
+        characterToEncode = pickCharacterFromSourceString();
+    }
+    private boolean endNotReached(){
+	return iterator <= this.sourceString.length();
+    }
+    private boolean endReached(){
+	return iterator >= sourceString.length();
+    }
 
-    //pick the character from source string
-    //and increment the pointer
-    private String stashNextCharacterAndAdvanceThePointer() {
-        char c = source.charAt(i);
-        i += 1;
+    private String stringify(List<String> list){
+	return String.join("<br />", totalEncodedOutputList);
+    }
+
+    private String pickCharacterFromSourceString(){
+        char c = sourceString.charAt(iterator);
+        iterator += 1;
         return String.valueOf(c);
     }
 
-    //stringfy convertedLine array and push into result
-    //reset convertedLine
-    private void addANewLine() {
-        String line = String.join("", convertedLine);
-        result.add(line);
-        convertedLine = new ArrayList<>();
+    private void ConvertEncodedLineListToString(){
+        String line = String.join("", encodedLineList);
+        totalEncodedOutputList.add(line);
+        encodedLineList = new ArrayList<>();
     }
 
     private void pushACharacterToTheOutput() {
-        convertedLine.add(characterToConvert);
+        encodedLineList.add(characterToEncode);
+    }
+
+    private void encodeCharAtIndex(int index){
+	switch (characterToEncode){
+	case "<":
+	    encodedLineList.add("&lt;");
+	    break;
+	case ">":
+	    encodedLineList.add("&gt;");
+	    break;
+	case "&":
+	    encodedLineList.add("&amp;");
+                    break;
+	case "\n":
+	    stringify(totalEncodedOutputList);
+	    break;
+	default:
+	    pushACharacterToTheOutput();
+	}
     }
 }
