@@ -3,6 +3,11 @@ package workshop;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+class Client {
+    TriviaGame game;
+
+}
+
 public class TriviaGame {
     Question question;
     Player player;
@@ -12,18 +17,18 @@ public class TriviaGame {
     boolean isGettingOutOfPenaltyBox;
 
     public TriviaGame() {
-	question = new Question();
-	player = new Player();
-	question.createQuestion(Question.QUESTION_COUNT);
+	    question = new Question();
+	    player = new Player();
+	    question.createQuestion(Question.QUESTION_COUNT);
     }
 
     private void announceRoll(int playerIndex, int roll){
-	Announcement.announce(player.players.get(playerIndex) + " is the current player");
-	Announcement.announce("They have rolled a " + roll);
+	    Announcement.announce(player.players.get(playerIndex) + " is the current player");
+	    Announcement.announce("They have rolled a " + roll);
     }
 
     private boolean playerInPenaltyBox(int playerIndex){
-	return player.inPenaltyBox[playerIndex];
+	    return player.inPenaltyBox[playerIndex];
     }
     private boolean oddRoll(int roll){
 	return roll % 2 != 0;
