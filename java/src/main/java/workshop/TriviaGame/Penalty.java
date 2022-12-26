@@ -1,5 +1,5 @@
 
-public abstract class Penalty extends Question implements IPenaltyBox, ITriviaGame{
+public abstract class Penalty extends Question implements IPenalty{
     public boolean playerInPenaltyBox(int playerIndex){
 	    return inPenaltyBox[playerIndex];
     }

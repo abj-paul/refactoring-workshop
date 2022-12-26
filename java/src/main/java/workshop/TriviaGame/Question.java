@@ -1,6 +1,6 @@
 import java.util.*;
 
-public abstract class Question extends Player implements ITriviaGame, IPlayer{
+public abstract class Question extends Player implements ITriviaGame{
     public static final int QUESTION_COUNT = 50;
 
     private LinkedList<String> popQuestions = new LinkedList<String>();

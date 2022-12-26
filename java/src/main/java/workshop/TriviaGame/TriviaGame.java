@@ -30,7 +30,5 @@ public class TriviaGame extends RollDice implements ITriviaGame{
     public void setGettingOutOfPenaltyBox(boolean value){
 	gettingOutOfPenaltyBox=value;
     }
-
-
 }
 

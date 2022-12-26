@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public abstract class Player implements IPlayer {
+public abstract class Player implements IPlayer, IAnnounce {
     protected ArrayList<String> players = new ArrayList<String>();
     protected int[] places = new int[6];
     protected int[] purses = new int[6];

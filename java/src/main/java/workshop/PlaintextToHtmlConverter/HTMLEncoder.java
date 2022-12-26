@@ -2,7 +2,7 @@
 
 import java.util.ArrayList;
 
-public class HTMLEncoder {
+public class HTMLEncoder implements IHTMLEncoder{
 	private String text;
 	private ArrayList<String> textLineList;
 	private ArrayList<String> textLine;

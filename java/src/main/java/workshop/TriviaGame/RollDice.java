@@ -1,5 +1,5 @@
 
-public abstract class RollDice extends Penalty implements IPenalty, ITriviaGame{
+public abstract class RollDice extends Penalty{
     protected void rejoinGame(int roll){
 	getOutOfPenalty();
 	getRoundQuestion(roll);

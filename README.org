@@ -1,2 +1,26 @@
 * FizzBuzz
+We have identified the following smells here.
+1. Switch Case
+2. Null Smell
+3. Inappropriate Naming
 
+   To handle them, we made the following adjustments.
+[[file:FizzBuzz.drawio.png]]
+* HTMLEncoder
+Here, we have split the original class into two class to follow the Single Responsibility principle. We have used interfaces for more robust structure. The client uses the interface blueprint to access the services.
+
+Aside from that, we have handled the following smells:
+1. Blacksheep
+2. Primitive Obsession
+3. Switch Case
+4. Replace temp with query
+[[file:HTMLEncoder.drawio.png]]
+* TriviaGame
+The following is the class hierarchy for TriviaGame. We have followed the following steps.
+1. Extract methods
+2. Extract Class
+3. Extract Interface
+4. Narrow Interface/Refused Bequest Smell
+5. Try different inheritance style
+
+[[file:TriviaGame.drawio.png]]
