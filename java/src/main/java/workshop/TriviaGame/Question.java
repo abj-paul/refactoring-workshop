@@ -1,6 +1,6 @@
 import java.util.*;
 
-public abstract class Question extends Player implements IPenaltyBox, ITriviaGame{
+public abstract class Question extends Player implements ITriviaGame, IPlayer{
     public static final int QUESTION_COUNT = 50;
 
     private LinkedList<String> popQuestions = new LinkedList<String>();
@@ -33,60 +33,31 @@ public abstract class Question extends Player implements IPenaltyBox, ITriviaGam
 
     protected void askQuestion() {
         if (currentCategory() == "Pop")
-	    Announcement.announce(popQuestions.removeFirst());
+	    IAnnounce.announce(popQuestions.removeFirst());
         if (currentCategory() == "Science")
-	    Announcement.announce(scienceQuestions.removeFirst());
+	    IAnnounce.announce(scienceQuestions.removeFirst());
         if (currentCategory() == "Sports")
-	    Announcement.announce(sportsQuestions.removeFirst());
+	    IAnnounce.announce(sportsQuestions.removeFirst());
         if (currentCategory() == "Rock")
-	    Announcement.announce(rockQuestions.removeFirst());
-    }
-
-    protected boolean wrongAnswer() {
-	announceWrongAnswer();
-	sendPlayerToPenaltyBox(getCurrentPlayer());
-	gotoNextPlayer();
-        return true;
-    }
-
-    public boolean wasCorrectlyAnswered() {
-        if (playerInPenaltyBox(getCurrentPlayer())) {
-            if (isGettingOutOfPenaltyBox()) return correctAnswerEvent();
-            else {
-		gotoNextPlayer();
-                return true;
-            }
-        } else return correctAnswerEvent();
-    }
-
-    @Override
-    protected void announceWrongAnswer(){
-	Announcement.announce("Question was incorrectly answered");
-	Announcement.announce(players.get(getCurrentPlayer()) + " was sent to the penalty box");
+	    IAnnounce.announce(rockQuestions.removeFirst());
     }
 
 
-    private boolean correctAnswerEvent(){
-	Announcement.announce("Answer was correct!!!!");
-	purses[getCurrentPlayer()]++;
-	Announcement.announce(players.get(getCurrentPlayer())
-		 + " now has "
-	      + purses[getCurrentPlayer()]
-		 + " Gold Coins.");
-
-	gotoNextPlayer();
-	return didPlayerWin();
+    
+    public void announceWrongAnswer(){
+	IAnnounce.announce("Question was incorrectly answered");
+	IAnnounce.announce(getPlayer(getCurrentPlayer()) + " was sent to the penalty box");
     }
 
 
-    protected void getRoundQuestion(int roll){
-	getNewPlaceBasedOn(roll);
-	
-	Announcement.announce("The category is " + currentCategory());
-	askQuestion();
-    }
+    protected abstract boolean wrongAnswer();
+    protected abstract boolean wasCorrectlyAnswered();
+    protected abstract boolean correctAnswerEvent();
+    protected abstract void getRoundQuestion(int roll);
 
-    private String currentCategory() {
+
+
+    protected String currentCategory() {
         if (places[getCurrentPlayer()] == 0) return "Pop";
         if (places[getCurrentPlayer()] == 4) return "Pop";
         if (places[getCurrentPlayer()] == 8) return "Pop";
@@ -98,7 +69,5 @@ public abstract class Question extends Player implements IPenaltyBox, ITriviaGam
         if (places[getCurrentPlayer()] == 10) return "Sports";
         return "Rock";
     }
-
-
 }
 

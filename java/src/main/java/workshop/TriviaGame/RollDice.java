@@ -1,12 +1,12 @@
 
-public abstract class RollDice extends PenaltyBox implements IRoll{
-    public void rejoinGame(int roll){
+public abstract class RollDice extends Penalty implements IPenalty, ITriviaGame{
+    protected void rejoinGame(int roll){
 	getOutOfPenalty();
 	getRoundQuestion(roll);
     }
 
 
-    public void roll(int roll) {
+    protected void roll(int roll) {
 	announceRoll(getCurrentPlayer(), roll);
 	
         if (playerInPenaltyBox(getCurrentPlayer())){
@@ -16,13 +16,50 @@ public abstract class RollDice extends PenaltyBox implements IRoll{
 	else getRoundQuestion(roll);
     }
 
-    public boolean oddRoll(int roll){
+    private boolean oddRoll(int roll){
 	return roll % 2 != 0;
     }
+    public void announceRoll(int playerIndex, int roll){
+	IAnnounce.announce(players.get(playerIndex) + " is the current player");
+	IAnnounce.announce("They have rolled a " + roll);
+    }
+
     @Override
-    protected void announceRoll(int playerIndex, int roll){
-	Announcement.announce(players.get(playerIndex) + " is the current player");
-	Announcement.announce("They have rolled a " + roll);
+    protected boolean wrongAnswer() {
+	announceWrongAnswer();
+	sendPlayerToPenaltyBox(getCurrentPlayer());
+	gotoNextPlayer();
+        return true;
+    }
+
+    @Override
+    protected boolean wasCorrectlyAnswered() {
+        if (playerInPenaltyBox(getCurrentPlayer())) {
+            if (isGettingOutOfPenaltyBox()) return correctAnswerEvent();
+            else {
+		gotoNextPlayer();
+                return true;
+            }
+        } else return correctAnswerEvent();
+    }
+    @Override
+    protected boolean correctAnswerEvent(){
+	IAnnounce.announce("Answer was correct!!!!");
+	purses[getCurrentPlayer()]++;
+	IAnnounce.announce(players.get(getCurrentPlayer())
+		 + " now has "
+	      + purses[getCurrentPlayer()]
+		 + " Gold Coins.");
+
+	gotoNextPlayer();
+	return didPlayerWin();
+    }
+    @Override
+    protected void getRoundQuestion(int roll){
+	getNewPlaceBasedOn(roll);
+	
+	IAnnounce.announce("The category is " + currentCategory());
+	askQuestion();
     }
 
 }

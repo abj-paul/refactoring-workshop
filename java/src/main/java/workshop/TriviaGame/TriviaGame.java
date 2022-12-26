@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 
-public class TriviaGame extends RollDice implements ITriviaGame {
+public class TriviaGame extends RollDice implements ITriviaGame{
     int currentPlayer;
     boolean gettingOutOfPenaltyBox;
 
@@ -31,9 +31,6 @@ public class TriviaGame extends RollDice implements ITriviaGame {
 	gettingOutOfPenaltyBox=value;
     }
 
-    public boolean isPlayable(int totalPlayerCount) {
-        return (totalPlayerCount >= 2);
-    }
 
 }
 
