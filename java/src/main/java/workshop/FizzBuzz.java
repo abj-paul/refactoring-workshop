@@ -7,23 +7,20 @@ package workshop;
  * For numbers which are factors of both three and five print FizzBuzz instead of the number
  */
 
-public class FizzBuzz {
-    public static String say(int number){
-	if(divisibleByFiveOrThree(number)) return sayTheWordFor(number);
-	else return sayNumber(number);
-    } 
+ public class FizzBuzz {
+    public static String say(int number) {
+        String strReturn = null;
 
-    private static boolean divisibleByFiveOrThree(int number){
-	return (number % 5==0) || (number % 3==0);
-    }
-    private static String sayTheWordFor(int number){
-        if (number % 15 == 0) return "FizzBuzz";
-	if (number % 3 == 0) return "Fizz";
-	if (number % 5 == 0) return "Buzz";
-	return "Error";
-    }
-    private static String sayNumber(int number){
-	return String.valueOf(number);
+        if (number % 15 == 0) {
+            strReturn = "FizzBuzz";
+        } else {
+            if (number % 3 == 0) strReturn = "Fizz";
+
+            if (number % 5 == 0) strReturn = "Buzz";
+        }
+
+        if (strReturn != null) return strReturn;
+
+        return String.valueOf(number);
     }
 }
-
