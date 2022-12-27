@@ -2,11 +2,21 @@ import java.util.*;
 
 public abstract class Question extends Player implements ITriviaGame{
     public static final int QUESTION_COUNT = 50;
+   private LinkedList<String> popQuestions;
+   private LinkedList<String> scienceQuestions;
+   private LinkedList<String> sportsQuestions;
+   private LinkedList<String> rockQuestions;
 
+	   
+	
+    Question(){
     private LinkedList<String> popQuestions = new LinkedList<String>();
     private LinkedList<String> scienceQuestions = new LinkedList<String>();
     private LinkedList<String> sportsQuestions = new LinkedList<String>();
     private LinkedList<String> rockQuestions = new LinkedList<String>();
+    }
+
+    
 
     protected void createQuestion(int questionCount){
 	for (int i = 0; i < QUESTION_COUNT; i++) {
