@@ -1,8 +1,9 @@
 * FizzBuzz
 We have identified the following smells here.
-1. Switch Case
-2. Null Smell
-3. Inappropriate Naming
+1. Switch Case: Using Polymorphism
+2. Null Smell: By eliminating it as it was unnecessary.
+3. Inappropriate Naming: Fixed the name of the method ~say()~
+4. Duplicate Code Smell: Eliminated switch case duplicate code using polymorphism.
 
    To handle them, we made the following adjustments.
 [[file:FizzBuzz.drawio.png]]
