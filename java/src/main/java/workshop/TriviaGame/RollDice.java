@@ -5,11 +5,10 @@ public abstract class RollDice extends Penalty{
 	getRoundQuestion(roll);
     }
 
-
     protected void roll(int roll) {
 	announceRoll(getCurrentPlayer(), roll);
 	
-        if (playerInPenaltyBox(getCurrentPlayer())){
+        if(playerInPenaltyBox(getCurrentPlayer())){
             if (oddRoll(roll)) rejoinGame(roll);
             else waitInPenaltyBox();
         }
@@ -34,14 +33,11 @@ public abstract class RollDice extends Penalty{
 
     @Override
     protected boolean wasCorrectlyAnswered() {
-        if (playerInPenaltyBox(getCurrentPlayer())) {
-            if (isGettingOutOfPenaltyBox()) return correctAnswerEvent();
-            else {
+	if (!playerInPenaltyBox(getCurrentPlayer()))
 		gotoNextPlayer();
-                return true;
-            }
-        } else return correctAnswerEvent();
+         else return correctAnswerEvent();
     }
+
     @Override
     protected boolean correctAnswerEvent(){
 	IAnnounce.announce("Answer was correct!!!!");

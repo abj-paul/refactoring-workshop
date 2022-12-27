@@ -41,8 +41,7 @@ public class HTMLEncoder implements IHTMLEncoder{
 	}
 
 	private void addANewLine(){
-		String line = String.join("",textLine);
-		textLineList.add(line);
+		textLineList.add(String.join("",textLine));
 		textLine = new ArrayList<>();
 	}
 }

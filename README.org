@@ -11,17 +11,22 @@ We have identified the following smells here.
 Here, we have split the original class into two class to follow the Single Responsibility principle. We have used interfaces for more robust structure. The client uses the interface blueprint to access the services.
 
 Aside from that, we have handled the following smells:
-1. Blacksheep
-2. Primitive Obsession
-3. Switch Case
-4. Replace temp with query
+1. Blacksheep: FileReading is not part of it.
+2. Primitive Obsession: Using primitive iterators(e.g. int i). So we replaced it with for-each.
+3. Switch Case: It is a smell but we have decided that it is necessary.
+4. Replace temp with query: replacing temporary variables with query in  ~addANewLine()~
+5. Oddball smell: the default in switch case had this smell. We made it aligned with others.
+
 [[file:HTMLEncoder.drawio.png]]
 * TriviaGame
 The following is the class hierarchy for TriviaGame. We have followed the following steps.
-1. Extract methods
-2. Extract Class
-3. Extract Interface
-4. Narrow Interface/Refused Bequest Smell
-5. Try different inheritance style
+1. Extract methods: It was our first step in decoding the problem.
+2. Extract Class: It was our second step.
+3. Extract Interface: It was our third step.
+4. Narrow Interface/Refused Bequest Smell: Narrow down interfaces
+5. Try different inheritance style: Tried different styles as can be seen below.
+6. Dead Code Smell: Some switch case smells were actually deadcode smells. e.g. RollDice
+7. Long Method: There were many long methods.
+8. Duplicate code: The famous "vaag" problem.
 
 [[file:TriviaGame.drawio.png]]

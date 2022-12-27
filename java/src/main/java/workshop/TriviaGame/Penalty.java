@@ -12,9 +12,7 @@ public abstract class Penalty extends Question implements IPenalty{
         places[getCurrentPlayer()] = places[getCurrentPlayer()] + roll;
 	if (places[getCurrentPlayer()] > 11) places[getCurrentPlayer()] = places[getCurrentPlayer()] - 12;
 	
-	IAnnounce.announce(players.get(getCurrentPlayer())
-		 + "'s new location is "
-			      + places[getCurrentPlayer()]);
+	IAnnounce.announce(players.get(getCurrentPlayer())+ "'s new location is "+ places[getCurrentPlayer()]);
     }
 
     public void waitInPenaltyBox(){
@@ -25,5 +23,4 @@ public abstract class Penalty extends Question implements IPenalty{
     public void sendPlayerToPenaltyBox(int playerIndex){
         inPenaltyBox[playerIndex] = true;
     }
-
 }

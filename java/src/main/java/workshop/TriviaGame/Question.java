@@ -9,13 +9,14 @@ public abstract class Question extends Player implements ITriviaGame{
     private LinkedList<String> rockQuestions = new LinkedList<String>();
 
     protected void createQuestion(int questionCount){
-	for (int i = 0; i < questionCount; i++) {
+	for (int i = 0; i < QUESTION_COUNT; i++) {
             popQuestions.addLast(createPopQuestion(i));
             scienceQuestions.addLast(createScienceQuestion(i));
             sportsQuestions.addLast(createSportsQuestion(i));
             rockQuestions.addLast(createRockQuestion(i));
         }
     }
+
     private String createPopQuestion(int index){
 	return "Pop Question " + index;
     }
@@ -58,15 +59,9 @@ public abstract class Question extends Player implements ITriviaGame{
 
 
     protected String currentCategory() {
-        if (places[getCurrentPlayer()] == 0) return "Pop";
-        if (places[getCurrentPlayer()] == 4) return "Pop";
-        if (places[getCurrentPlayer()] == 8) return "Pop";
-        if (places[getCurrentPlayer()] == 1) return "Science";
-        if (places[getCurrentPlayer()] == 5) return "Science";
-        if (places[getCurrentPlayer()] == 9) return "Science";
-        if (places[getCurrentPlayer()] == 2) return "Sports";
-        if (places[getCurrentPlayer()] == 6) return "Sports";
-        if (places[getCurrentPlayer()] == 10) return "Sports";
+        if (places[getCurrentPlayer()]%4 == 0) return "Pop";
+        if (places[getCurrentPlayer()]%4 == 1) return "Science";
+        if (places[getCurrentPlayer()]%4 == 2) return "Sports";
         return "Rock";
     }
 }
